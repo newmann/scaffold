@@ -1,0 +1,4 @@
+rootProject.name = 'scaffold'
+include 'app-api'
+include 'service'
+

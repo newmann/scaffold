@@ -1,0 +1,110 @@
+// jar包的名字
+archivesBaseName = 'service'
+
+configurations {
+    mybatisGenerator
+}
+
+// 还可以定义其他配置，这里直接继承父模块中的配置
+dependencies{
+    // 依赖 core 模块
+//    compile project(":service")
+    //定义版本号
+    ext {
+        mysqlVersion='5.1.39'
+        mybatisVersion='3.4.1'
+        mybatisSpringVersion='1.3.0'
+        mapperVersion='3.3.8'
+        pagehelperVersion='4.1.4'
+    }
+
+    compile(
+            "mysql:mysql-connector-java:$mysqlVersion",
+            "com.alibaba:druid:1.0.25",
+            "org.mybatis:mybatis:$mybatisVersion",
+            "org.mybatis:mybatis-spring:$mybatisSpringVersion",
+            "org.mybatis.generator:mybatis-generator-core:1.3.2",
+            "com.github.pagehelper:pagehelper:$pagehelperVersion",
+            "tk.mybatis:mapper:$mapperVersion"
+    )
+    mybatisGenerator "org.mybatis.generator:mybatis-generator-core:1.3.2"
+    mybatisGenerator "mysql:mysql-connector-java:$mysqlVersion"
+    mybatisGenerator "tk.mybatis:mapper:$mapperVersion"
+//    //系统提供的依赖
+//    providedCompile(
+//            "commons-dbcp:commons-dbcp:1.4"
+//    )
+
+}
+
+def getDbProperties = {
+    def properties = new Properties()
+    def dbPropertiesPath = sourceSets.main.resources.srcDirs[0].path;
+    file("$dbPropertiesPath/jdbc.properties").withInputStream { inputStream ->
+        properties.load(inputStream)
+    }
+
+    properties;
+
+}
+
+
+sourceSets {
+    main {
+        java{
+            srcDir("src/main/java")
+        }
+        resources {
+            srcDir("src/main/resources")
+//            if (project['env'] == 'dev') {
+//                srcDir("src/main/resources-dev")
+//            } else if (project['env'] == 'prod') {
+//                srcDir('src/main/resources-prod')
+//            }
+        }
+    }
+
+
+}
+
+task mybatisGenerate << {
+    def prop = getDbProperties()
+
+    ant.properties['targetProject'] = projectDir.path
+    ant.properties['driverClass'] = prop.getProperty('jdbc.driver')
+    ant.properties['connectionURL'] = prop.getProperty('jdbc.url')
+    ant.properties['userId'] = prop.getProperty('jdbc.username')
+    ant.properties['password'] = prop.getProperty('jdbc.password')
+    ant.properties['src_main_java'] = sourceSets.main.java.srcDirs[0].path
+    ant.properties['src_main_resources'] = sourceSets.main.resources.srcDirs[0].path
+    ant.properties['modelPackage'] = "com.beiyelin.service.footstone.model"
+    ant.properties['mapperPackage'] = "com.beiyelin.service.footstone.mapping"
+    ant.properties['sqlMapperPackage'] = "com.beiyelin.service.footstone.dao"
+
+    ant.taskdef(
+            name: 'mbgenerator',
+            classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+            classpath: configurations.mybatisGenerator.asPath
+    )
+    ant.mbgenerator(overwrite: true,
+            configfile: sourceSets.main.resources.srcDirs[0].path + '/generatorConfig.xml', verbose: true) {
+        propertyset {
+            propertyref(name: 'targetProject')
+            propertyref(name: 'driverClass')
+            propertyref(name: 'connectionURL')
+            propertyref(name: 'userId')
+            propertyref(name: 'password')
+            propertyref(name: 'src_main_java')
+            propertyref(name: 'src_main_resources')
+            propertyref(name: 'modelPackage')
+            propertyref(name: 'mapperPackage')
+            propertyref(name: 'sqlMapperPackage')
+
+        }
+    }
+}
+
+task testAnt <<{
+    String greeting = 'Hello from Ant'
+    ant.echo(message: greeting)
+}

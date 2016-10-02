@@ -1,0 +1,126 @@
+group 'com.beiyelin'
+
+// 所有子项目的通用配置
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    version = '1.0'
+
+    // JVM 版本号要求
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    // java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+
+    //定义版本号
+    ext {
+        springVersion = '4.3.3.RELEASE'
+        aspectjVersion= '1.8.9'
+        slf4jVersion = '1.7.21'
+        log4jVersion = '2.6.2'
+        shiroVersion = '1.3.1'
+        disruptorVersion = '3.3.5'
+        hibernateValidatorVersion = '5.2.4.Final'
+        fasterxmlJacksonVersion = '2.8.2'
+
+//        hibernateVersion='4.3.1.Final'
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    jar {
+        manifest {
+            attributes("Implementation-Title": "Gradle")
+        }
+    }
+
+//    configurations {
+        // 所有需要忽略的包定义在此
+//        all*.exclude group: 'commons-httpclient'
+//        all*.exclude group: 'commons-logging'
+//        all*.exclude group: 'commons-beanutils', module: 'commons-beanutils'
+//    }
+
+    dependencies {
+        // 通用依赖
+        compile(
+                "org.springframework:spring-context:$springVersion",
+                "org.springframework:spring-orm:$springVersion",
+                "org.springframework:spring-tx:$springVersion",
+                "org.springframework:spring-aop:$springVersion",
+                "org.springframework:spring-beans:$springVersion",
+                "org.springframework:spring-core:$springVersion",
+                "org.springframework:spring-expression:$springVersion",
+                "org.springframework:spring-jdbc:$springVersion",
+                "org.springframework:spring-web:$springVersion",
+                "org.springframework:spring-webmvc:$springVersion",
+                //shiro
+                "org.apache.shiro:shiro-core:$shiroVersion",
+                "org.apache.shiro:shiro-ehcache:$shiroVersion",
+                "org.apache.shiro:shiro-web:$shiroVersion",
+                "org.apache.shiro:shiro-spring:$shiroVersion",
+                //hibernate-Validator
+                "org.hibernate:hibernate-validator:$hibernateValidatorVersion",
+                //logger begin slf4j门面+log4j实现
+                "org.slf4j:slf4j-api:$slf4jVersion",
+                "org.apache.logging.log4j:log4j-api:$log4jVersion",
+                "org.apache.logging.log4j:log4j-core:$log4jVersion",
+//                <!--用于与slf4j保持桥接-->
+                "org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion",
+//                <!--web工程需要包含log4j-web，非web工程不需要-->
+                "org.apache.logging.log4j:log4j-web:$log4jVersion",
+//                <!--需要使用log4j2的AsyncLogger需要包含disruptor-->
+                "com.lmax:disruptor:$disruptorVersion",
+
+
+//                <!-- AspectJ包 使用Spring的aop时需要使用到aspectjrt包 -->
+                "org.aspectj:aspectjrt:$aspectjVersion",
+//                <!--aspectjweaver包 使用Spring的aop时需要使用到aspectjweaver包 -->
+                "org.aspectj:aspectjweaver:$aspectjVersion",
+
+//                <!-- 映入JSON -->
+                "com.fasterxml.jackson.core:jackson-core:$fasterxmlJacksonVersion",
+                "com.fasterxml.jackson.core:jackson-databind:$fasterxmlJacksonVersion",
+                "com.fasterxml.jackson.core:jackson-annotations:$fasterxmlJacksonVersion",
+//                <!--JWT Token  -->
+                "io.jsonwebtoken:jjwt:0.7.0",
+                // https://mvnrepository.com/artifact/commons-codec/commons-codec
+                "commons-codec:commons-codec:1.10",
+                //servlet
+                "javax.servlet:javax.servlet-api:3.0.1"
+        )
+
+        // 依赖maven中不存在的jar
+        ext.jarTree = fileTree(dir: 'libs', include: '**/*.jar')
+        ext.rootProjectLibs = new File(rootProject.rootDir, 'libs').getAbsolutePath()
+        ext.jarTree += fileTree(dir: rootProjectLibs, include: '**/*.jar')
+
+        compile jarTree
+
+        // 测试依赖
+        testCompile(
+                "org.springframework:spring-test:$springVersion",
+                "junit:junit:4.12"
+        )
+    }
+
+    // 显示当前项目下所有用于 compile 的 jar.
+    task listJars(description: 'Display all compile jars.') << {
+        configurations.compile.each { File file -> println file.name }
+    }
+}
+
+//sourceCompatibility = 1.8
+//
+//repositories {
+//    mavenCentral()
+//}
+//
+//dependencies {
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+//}

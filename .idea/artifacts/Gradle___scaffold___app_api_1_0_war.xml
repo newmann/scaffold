@@ -1,0 +1,72 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Gradle : scaffold : app-api-1.0.war">
+    <output-path>$PROJECT_DIR$/out/artifacts/app-api</output-path>
+    <properties id="gradle-properties">
+      <options external-project-path="$PROJECT_DIR$" />
+    </properties>
+    <root id="archive" name="app-api-1.0.war">
+      <element id="javaee-facet-resources" facet="app-api_main/web/Web Gradle : app-api-1.0.war" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="app-api_main" />
+          <element id="dir-copy" path="$PROJECT_DIR$/app-api/build/resources/main" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Gradle: org.springframework:spring-context:4.3.3.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-orm:4.3.3.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-tx:4.3.3.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-aop:4.3.3.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-beans:4.3.3.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-core:4.3.3.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-expression:4.3.3.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-jdbc:4.3.3.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-web:4.3.3.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:4.3.3.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.apache.shiro:shiro-core:1.3.1" />
+          <element id="library" level="project" name="Gradle: org.apache.shiro:shiro-ehcache:1.3.1" />
+          <element id="library" level="project" name="Gradle: org.apache.shiro:shiro-web:1.3.1" />
+          <element id="library" level="project" name="Gradle: org.apache.shiro:shiro-spring:1.3.1" />
+          <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
+          <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
+          <element id="library" level="project" name="Gradle: org.apache.logging.log4j:log4j-api:2.6.2" />
+          <element id="library" level="project" name="Gradle: org.apache.logging.log4j:log4j-core:2.6.2" />
+          <element id="library" level="project" name="Gradle: org.apache.logging.log4j:log4j-slf4j-impl:2.6.2" />
+          <element id="library" level="project" name="Gradle: org.apache.logging.log4j:log4j-web:2.6.2" />
+          <element id="library" level="project" name="Gradle: com.lmax:disruptor:3.3.5" />
+          <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
+          <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.9" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.8.2" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.8.2" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.2" />
+          <element id="library" level="project" name="Gradle: io.jsonwebtoken:jjwt:0.7.0" />
+          <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.10" />
+          <element id="archive" name="scaffold-service-1.0.jar">
+            <element id="module-output" name="service_main" />
+            <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
+          </element>
+          <element id="library" level="project" name="Gradle: mysql:mysql-connector-java:5.1.39" />
+          <element id="library" level="project" name="Gradle: com.alibaba:druid:1.0.25" />
+          <element id="library" level="project" name="Gradle: org.mybatis:mybatis:3.4.1" />
+          <element id="library" level="project" name="Gradle: org.mybatis:mybatis-spring:1.3.0" />
+          <element id="library" level="project" name="Gradle: org.mybatis.generator:mybatis-generator-core:1.3.2" />
+          <element id="library" level="project" name="Gradle: com.github.pagehelper:pagehelper:4.1.4" />
+          <element id="library" level="project" name="Gradle: tk.mybatis:mapper:3.3.8" />
+          <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
+          <element id="library" level="project" name="Gradle: commons-beanutils:commons-beanutils:1.8.3" />
+          <element id="library" level="project" name="Gradle: net.sf.ehcache:ehcache-core:2.5.3" />
+          <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
+          <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final" />
+          <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.1.0" />
+          <element id="library" level="project" name="Gradle: com.github.jsqlparser:jsqlparser:0.9.5" />
+          <element id="library" level="project" name="Gradle: javax.persistence:persistence-api:1.0" />
+          <element id="library" level="project" name="Gradle: org.apache.taglibs:taglibs-standard-impl:1.2.1" />
+          <element id="file-copy" path="C:/dev/gradlerepo/.gradle/caches/modules-2/files-2.1/javax.servlet/javax.servlet-api/3.0.1/6bf0ebb7efd993e222fc1112377b5e92a13b38dd/javax.servlet-api-3.0.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/app-api/build/libs/app-api-1.0.jar" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/app-api/exploded/app-api-1.0.war/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
